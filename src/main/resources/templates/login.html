@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <script type="text/javascript" th:src="@{/jquery-1.9.1.min.js}"></script>
+    <meta charset="UTF-8"/>
+    <title>用户登录</title>
+</head>
+<body>
+<script type="text/javascript">
+    
+    function loginTest() {
+        var username = $.trim($('#username').val());
+        var password = $.trim($('#password').val());
+        if (username == '') {
+            alert("请输入用户名。");
+            return false;
+        }
+        if (password == '') {
+            alert("请输入密码。");
+            return false;
+        }
+        $.ajax({
+            type : 'post',
+            url : 'http://localhost:8080/login-data',
+            data : {"loginname":username,"password":password},
+            dataType : 'json',
+            success : function(data) {
+                debugger;
+                if (data.state == 10000) {
+                    alert("登录成功，正在跳转主页");
+                    setTimeout(function() {
+                        window.location.href = 'http://localhost:8080/to-index';
+                    }, 500);
+                } else {
+                   alert("登录失败，请重新登录!")
+                }
+            },
+        });
+    }
+    
+</script>
+<div id="box">
+    <h2>用户登录</h2>
+    <form id="form1" method="post">
+        <p>用户名: <input type="text" id="username" name="username"/></p>
+        <p>密码: <input type="text" id="password" name="password"/></p>
+        <input type="button" value="提交" onclick="loginTest()"/>
+    </form>
+</div>
+</body>
+</html>

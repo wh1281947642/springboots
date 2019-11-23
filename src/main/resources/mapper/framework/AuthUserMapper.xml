@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.springboots.dao.framework.IAuthUserMapper" >
+
+
+    <select id="queryList" resultType="com.example.springboots.entity.framework.AuthUserEntity">
+        select *
+        from
+          AUTH_USER AA
+        <where>
+            <if test='organCode != null and organCode!=""'>
+                AA.ORGAN_CODE = #{organCode}
+            </if>
+            <if test='username != null and username!=""'>
+                AND AA.USERNAME = #{username}
+            </if>
+        </where>
+        order by AA.CREATE_DATETIME desc
+    </select>
+  
+
+</mapper>
